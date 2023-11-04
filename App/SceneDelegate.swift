@@ -1,9 +1,7 @@
 //
 //  SceneDelegate.swift
 //  QuotesApp
-//
-//  Created by Мамуля on 02.11.2023.
-//
+
 
 import UIKit
 
@@ -16,7 +14,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: scene)
+        let firstVC = UINavigationController(rootViewController: FirstViewController())
+        let seconsVC = UINavigationController(rootViewController: SecondViewController())
+        let thirdVC = UINavigationController(rootViewController: ThirdViewController())
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [firstVC, seconsVC, thirdVC]
+        tabBarController.tabBar.barTintColor = .lightGray
+        firstVC.tabBarItem = UITabBarItem(title: "get quot", image: UIImage(systemName: "quote.bubble"), tag: 0)
+        seconsVC.tabBarItem = UITabBarItem(title: "quot list", image: UIImage(systemName: "list.bullet.circle"), tag: 1)
+        thirdVC.tabBarItem = UITabBarItem(title: "quot category", image: UIImage(systemName: "checklist.unchecked"), tag: 2)
+
+
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

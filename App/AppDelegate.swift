@@ -1,9 +1,7 @@
 //
 //  AppDelegate.swift
 //  QuotesApp
-//
-//  Created by Мамуля on 02.11.2023.
-//
+
 
 import UIKit
 
