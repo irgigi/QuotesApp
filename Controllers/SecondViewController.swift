@@ -7,7 +7,7 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
-    private let toDoService = ToDoService()
+    private let toDoService = ToDoService.sharedConfiguration
     var quotes: [Quote] = []
     
     //MARK: -ui-

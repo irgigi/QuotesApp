@@ -8,7 +8,7 @@ import UIKit
 class FirstViewController: UIViewController {
     
     private let networkService = NetworkService()
-    private let toDoService = ToDoService()
+    private let toDoService = ToDoService.sharedConfiguration
     
     
     //MARK: -ui-

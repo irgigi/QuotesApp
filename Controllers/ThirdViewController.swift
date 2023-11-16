@@ -7,7 +7,7 @@ import UIKit
 
 class ThirdViewController: UIViewController {
     
-    private let toDoService = ToDoService()
+    private let toDoService = ToDoService.sharedConfiguration
     var categories: [String] = []
     
     //MARK: -ui-

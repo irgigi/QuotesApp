@@ -7,7 +7,7 @@ import UIKit
 
 class QuotesByCategoryViewController: UIViewController {
     
-    private let toDoService = ToDoService()
+    private let toDoService = ToDoService.sharedConfiguration
     var selectedCategory: String?
     var quotesOfCategory: [Quote] = []
     
