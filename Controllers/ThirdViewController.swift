@@ -27,6 +27,11 @@ class ThirdViewController: UIViewController {
         view.backgroundColor = .lightGray
         title = "Categories"
         setupConstraints()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         toDoService.getCategories { [weak self] category in
             self?.categories = category
             DispatchQueue.main.async {

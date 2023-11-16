@@ -14,6 +14,7 @@ final class ToDoService {
     
     private init() {}
     
+    //MARK:  -создание ключа
     private func generateKey() -> Data {
         var keyData = Data(count: 64)
         _ = keyData.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) in
@@ -25,14 +26,9 @@ final class ToDoService {
     private var encryptionKey: Data {
         return generateKey()
     }
-    
+    //MARK:  -конфигурация
     private var realmConfiguration: Realm.Configuration {
         return Realm.Configuration(encryptionKey: encryptionKey)
-    }
-    
-    private func configKey(_ key: Data) throws -> Realm.Configuration {
-        let config = Realm.Configuration(encryptionKey: key)
-        return config
     }
     
     private func openRealm() throws -> Realm {
@@ -49,7 +45,7 @@ final class ToDoService {
         }
     }
     
-
+    //MARK:  - methods
  
     func addQuots(quote: String, category: String) {
         
@@ -66,7 +62,7 @@ final class ToDoService {
                 print(">error")
             }
         } catch {
-            print(">>error")
+            print("НЕТ ДОСТУПА К ДАННЫМ")
         }
  
     }
