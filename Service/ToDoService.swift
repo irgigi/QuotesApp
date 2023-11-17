@@ -11,26 +11,40 @@ final class ToDoService {
     static let sharedConfiguration = ToDoService()
     
     private var realm: Realm?
+    private var encryptionKey: Data?
     
     private init() {}
     
-    //MARK:  -создание ключа
-    private func generateKey() -> Data {
+    //MARK:  - загрузка ключа и создание конфигурации
+    
+    private var realmConfiguration: Realm.Configuration {
+        
+        guard let key = KeyChainManager.shared.loadEncryptionKey() else {
+            return Realm.Configuration()
+        }
+        
+        return Realm.Configuration(encryptionKey: key)
+    }
+    
+    
+    //MARK:  - генерация ключа
+    
+    
+    private func generateEncryptionKey() -> Data {
+        //генерация ключа
         var keyData = Data(count: 64)
         _ = keyData.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) in
             SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
         }
+        // сохранение ключа в KeyChain
+        KeyChainManager.shared.saveEncryptionKey(keyData)
         return keyData
     }
     
-    private var encryptionKey: Data {
-        return generateKey()
-    }
-    //MARK:  -конфигурация
-    private var realmConfiguration: Realm.Configuration {
-        return Realm.Configuration(encryptionKey: encryptionKey)
-    }
+
     
+    //MARK:  - Realm с конфигурацией
+
     private func openRealm() throws -> Realm {
         if let existingRealm = realm {
             return existingRealm
